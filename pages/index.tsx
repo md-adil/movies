@@ -4,10 +4,14 @@ import Layout from '../src/components/layout'
 import {  useRouter} from "next/router";
 import { useAsync } from 'react-use';
 import Loader from '../src/components/loader';
-import Movies, { SearchBox } from '../src/list';
+import Movies from '../src/list';
 import Center from '../src/components/center';
 import { Pagination } from '@mui/material';
 import qs from "querystring";
+import { SearchBox } from '../src/list/search';
+
+const perPage = 74;
+
 
 const Home: NextPage = (props) => {
   const router = useRouter();
@@ -24,9 +28,11 @@ const Home: NextPage = (props) => {
         <SearchBox />
       </div>
       {loading ? <Center><Loader /></Center> : <Movies list={value?.MovieList ?? []} />}
-      <div style={{ padding: '1rem 0', display: 'flex', justifyContent: 'flex-end' }}>
-          <Pagination onChange={handlePagination} count={100} page={parseInt(router.query.page as string ?? '1')} />
-      </div>
+      { (value?.MovieList.length ?? 0) > perPage  && (
+        <div style={{ padding: '1rem 0', display: 'flex', justifyContent: 'flex-end' }}>
+            <Pagination onChange={handlePagination} count={100} page={parseInt(router.query.page as string ?? '1')} />
+        </div>
+      )}
     </Layout>
   )
 }

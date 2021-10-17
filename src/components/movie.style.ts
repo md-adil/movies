@@ -4,11 +4,20 @@ export const container = css`
     display: flex;
 `;
 
-export const imageContainer = css``;
+export const phoneContainer = css`
+    max-height: 80vh;
+    overflow: auto;
+`;
+
+export const imageContainer = css`
+    > div {
+        display: block !important;
+    }
+`;
 
 export const poster = css`
-    height: 100%;
-    width: 100%;
+    display: block;
+    max-width: 100%;
 `;
 
 export const title = css`
@@ -17,6 +26,7 @@ export const title = css`
 
 export const content = css`
     padding: 1rem;
+    overflow: auto;
 `;
 
 export const downloads = css`

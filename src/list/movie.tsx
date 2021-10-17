@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import { css } from "@emotion/css";
-import { ButtonBase } from "@mui/material";
+import { css, cx } from "@emotion/css";
+import { ButtonBase, Divider } from "@mui/material";
+import { usePhone } from "../hooks/device";
 import { IMovieList } from "../interfaces";
 
 const item = css`
@@ -15,23 +16,41 @@ const item = css`
         z-index: 1;
     }
     &:hover > div {
-        height: 50%;
+        max-height: 70%;
     }
 `;
+
+const itemPhone = css`
+    height: auto;
+    width: auto;
+    display: flex;
+    background: #fff;
+    justify-content: flex-start;
+    align-items: flex-start;
+    &:hover {
+        box-shadow: none;
+    }
+    img {
+        width: 80px;
+    }
+`
 
 const content = css`
     position: absolute;
     bottom: 0;
     background: rgba(0,0,0,.4);
     color: #fff;
-    height: 0;
-    transition: height .3s;
+    max-height: 0;
+    transition: max-height .3s;
     left: 0; right: 0;
 `;
 
 const container = css`
     padding: 0.5rem 1rem;
     text-align: left;
+    h3, div {
+        padding-bottom: 0.25rem;
+    }
 `;
 
 const title = css`
@@ -44,13 +63,19 @@ interface IProps {
     onClick: () => void;
 }
 export default function Movie({movie, onClick}: IProps) {
+    const isPhone = usePhone();
     return (
-        <ButtonBase className={item} onClick={onClick}>
+        <ButtonBase className={cx(item, {[itemPhone]: isPhone})} onClick={onClick}>
             <img src={movie.poster_med} alt={movie.title} />
-            <div className={content}>
+            <div className={cx({[content]: !isPhone})}>
                 <div className={container}>
                     <h3 className={title}>{movie.title}</h3>
-                    <div>Rating: {movie.rating}</div>
+                    <div>
+                        <strong>
+                            {movie.year}
+                        </strong> | Rating: {movie.rating}
+                    </div>
+                    <div></div>
                     <div>{movie.genres.join(', ')}</div>
                     <div>
                         {movie.actors}

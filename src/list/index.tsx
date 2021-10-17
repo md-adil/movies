@@ -1,23 +1,37 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import MovieItem from "./movie";
 import { IMovieList } from "../interfaces";
 import classes from "./index.module.scss";
 import Dialog from "../components/dialog";
 import Movie from "../components/movie";
-import { useRouter } from "next/router";
-import { Container, Input } from "@mui/material";
-
+import { Divider } from "@mui/material";
+import { usePhone } from "../hooks/device";
+import {cx, css} from "@emotion/css";
+import Empty from "./empty";
+ 
+const containerPhone = css`
+  flex-direction: column;
+`;
 
 interface IProps {
     list: IMovieList[]
 }
 export default function Movies({list}: IProps) {
   const [movie, setMovie] = useState<IMovieList>();
+  const isPhone = usePhone();
+  if (!list.length) {
+    return (
+      <Empty />
+    )
+  }
   return (
     <div>
-      <div className={classes.container}>
+      <div className={cx(classes.container, {[containerPhone]: isPhone})}>
         {list.map(m => (
-          <MovieItem onClick={() => setMovie(m)} movie={m} key={m.id} />
+          <Fragment key={m.id}>
+            <MovieItem onClick={() => setMovie(m)} movie={m} />
+            {isPhone && <Divider />}
+          </Fragment>
         ))}
       </div>
      
@@ -25,21 +39,5 @@ export default function Movies({list}: IProps) {
         <Movie id={movie?.imdb} />
       </Dialog>
     </div>
-  )
-}
-
-export function SearchBox() {
-  const router = useRouter();
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    router.push(`?keywords=${e.target.keywords.value}`);
-  }
-  return (
-    <Container>
-      <form onSubmit={handleSubmit}>
-        <button type="submit" style={{display: 'none'}}></button>
-        <Input name="keywords" placeholder="Movie title" fullWidth defaultValue={router.query.keywords}/>
-      </form>
-    </Container>
   )
 }

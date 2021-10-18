@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { css, cx } from "@emotion/css";
-import { ButtonBase, Divider } from "@mui/material";
+import { ButtonBase, Chip, Divider } from "@mui/material";
+import { capitalize } from "lodash";
 import { usePhone } from "../hooks/device";
 import { IMovieList } from "../interfaces";
 
@@ -11,6 +12,10 @@ const item = css`
     background: rgba(0,0,0, .8);
     transition: box-shadow .3s;
     box-shadow: 0 0 0;
+    margin: 0.25rem;
+    border: 0.25rem solid #fff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+    border-radius: 0.25rem;
     &:hover {
         box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
         z-index: 1;
@@ -27,6 +32,8 @@ const itemPhone = css`
     background: #fff;
     justify-content: flex-start;
     align-items: flex-start;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    box-shadow: none;
     &:hover {
         box-shadow: none;
     }
@@ -76,7 +83,7 @@ export default function Movie({movie, onClick}: IProps) {
                         </strong> | Rating: {movie.rating}
                     </div>
                     <div></div>
-                    <div>{movie.genres.join(', ')}</div>
+                    <div>{movie.genres.map(capitalize).join(', ')}</div>
                     <div>
                         {movie.actors}
                     </div>

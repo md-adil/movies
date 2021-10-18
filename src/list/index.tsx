@@ -28,10 +28,7 @@ export default function Movies({list}: IProps) {
     <div>
       <div className={cx(classes.container, {[containerPhone]: isPhone})}>
         {list.map(m => (
-          <Fragment key={m.id}>
-            <MovieItem onClick={() => setMovie(m)} movie={m} />
-            {isPhone && <Divider />}
-          </Fragment>
+          <MovieItem key={m.id} onClick={() => setMovie(m)} movie={m} />
         ))}
       </div>
      

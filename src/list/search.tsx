@@ -14,7 +14,7 @@ export function SearchBox() {
       <Container>
         <form onSubmit={handleSubmit}>
           <button type="submit" style={{display: 'none'}}></button>
-          <div className={css`text-align: right;padding: 1rem;padding-bottom: 0;`}>
+          <div className={css`text-align: right;padding: 1rem 0;padding-bottom: 0;`}>
             <Input name="keywords" placeholder="Search by movie title"
                 endAdornment={<Search />}
             defaultValue={router.query.keywords}/>

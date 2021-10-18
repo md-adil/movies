@@ -1,13 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 import { css, cx } from "@emotion/css";
-import { ButtonBase, Chip, Divider } from "@mui/material";
+import { ButtonBase } from "@mui/material";
 import { capitalize } from "lodash";
 import { usePhone } from "../hooks/device";
 import { IMovieList } from "../interfaces";
+import { bp } from "../libs/device";
 
 const item = css`
-    height: 278px;
-    width: 185px;
     overflow: hidden;
     background: rgba(0,0,0, .8);
     transition: box-shadow .3s;
@@ -16,6 +15,24 @@ const item = css`
     border: 0.25rem solid #fff;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
     border-radius: 0.25rem;
+    ${bp.up.sm} {
+        height: 278px;
+        width: 185px;
+    }
+    ${bp.down.sm} {
+        display: flex;
+        background: #fff;
+        justify-content: flex-start;
+        align-items: flex-start;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        box-shadow: none;
+        &:hover {
+            box-shadow: none;
+        }
+        img {
+            width: 80px;
+        }
+    }
     &:hover {
         box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
         z-index: 1;
@@ -25,22 +42,7 @@ const item = css`
     }
 `;
 
-const itemPhone = css`
-    height: auto;
-    width: auto;
-    display: flex;
-    background: #fff;
-    justify-content: flex-start;
-    align-items: flex-start;
-    border: 1px solid rgba(0, 0, 0, 0.12);
-    box-shadow: none;
-    &:hover {
-        box-shadow: none;
-    }
-    img {
-        width: 80px;
-    }
-`
+const itemPhone = css``
 
 const content = css`
     position: absolute;

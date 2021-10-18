@@ -4,13 +4,14 @@ import { IMovieList } from "../interfaces";
 import classes from "./index.module.scss";
 import Dialog from "../components/dialog";
 import Movie from "../components/movie";
-import { Divider } from "@mui/material";
-import { usePhone } from "../hooks/device";
 import {cx, css} from "@emotion/css";
 import Empty from "./empty";
+import { bp } from "../libs/device";
  
-const containerPhone = css`
-  flex-direction: column;
+const container = css`
+  ${bp.down.sm} {
+    flex-direction: column;
+  }
 `;
 
 interface IProps {
@@ -18,7 +19,6 @@ interface IProps {
 }
 export default function Movies({list}: IProps) {
   const [movie, setMovie] = useState<IMovieList>();
-  const isPhone = usePhone();
   if (!list.length) {
     return (
       <Empty />
@@ -26,7 +26,7 @@ export default function Movies({list}: IProps) {
   }
   return (
     <div>
-      <div className={cx(classes.container, {[containerPhone]: isPhone})}>
+      <div className={cx(classes.container, container)}>
         {list.map(m => (
           <MovieItem key={m.id} onClick={() => setMovie(m)} movie={m} />
         ))}

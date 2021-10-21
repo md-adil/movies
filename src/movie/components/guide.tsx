@@ -1,24 +1,17 @@
 import {css} from "@emotion/css";
 import { HelpOutline } from "@mui/icons-material";
 import Close from "@mui/icons-material/Close";
-import { Collapse, IconButton, Link, Tooltip } from "@mui/material";
+import { Alert, Collapse, IconButton, Link, Tooltip } from "@mui/material";
 import { useState } from "react";
 import { getDevice } from "../../libs/device"
 
 const gap = css`padding-bottom: 0.5rem;`;
 const faded = css`color: #666;`;
+
 export function Guide() {
     const device = getDevice();
     if (!device) {
         return null;
-    }
-
-    if (device.os.name === "iOS") {
-        return (
-            <div>
-                IOs does'nt support torrent client yet. you might consider other operating system.
-            </div>
-        )
     }
 
     if (device.os.name === "Android") {
@@ -50,21 +43,30 @@ export function Guide() {
 
 export function Help() {
     const [isIn, setIn] = useState(false);
+    const device = getDevice();
     const handleHelp = () => {
         setIn(x => !x);
     }
+    if (device?.os.name === "iOS") {
+        return (
+            <Alert severity="error" className={css`margin-top: 0.5rem;`}>
+                IOS doesn't support torrent client yet. You might consider other operating system.
+            </Alert>
+        )
+    }
     return (
-        <>
-        <div className={css`text-align:right;`}>
-            <Tooltip title="How to download">
-            <IconButton size="small" onClick={handleHelp}>
-                { isIn ? <Close fontSize="inherit" /> : <HelpOutline fontSize="inherit" /> }
-            </IconButton>
-            </Tooltip>
-        </div> 
-        <Collapse in={isIn}>
+        <div className={css`display:flex;margin-top: 0.5rem`}>
+            <Collapse in={isIn}>
                 <Guide />
             </Collapse>
-        </>
+            <div>
+                <Tooltip title="How to download">
+                <IconButton size="small" onClick={handleHelp}>
+                    { isIn ? <Close fontSize="inherit" /> : <HelpOutline fontSize="inherit" /> }
+                </IconButton>
+                </Tooltip>
+            </div> 
+        
+        </div>
     )
 }

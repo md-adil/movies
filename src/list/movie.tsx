@@ -13,11 +13,15 @@ const item = css`
     box-shadow: 0 0 0;
     margin: 0.25rem;
     border: 0.25rem solid #fff;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
     border-radius: 0.25rem;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
     ${bp.up.sm} {
         height: 278px;
         width: 185px;
+        &:hover {
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+            z-index: 1;
+        }
     }
     ${bp.down.sm} {
         display: flex;
@@ -26,23 +30,14 @@ const item = css`
         align-items: flex-start;
         border: 1px solid rgba(0, 0, 0, 0.12);
         box-shadow: none;
-        &:hover {
-            box-shadow: none;
-        }
         img {
             width: 80px;
         }
-    }
-    &:hover {
-        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-        z-index: 1;
     }
     &:hover > div {
         max-height: 70%;
     }
 `;
-
-const itemPhone = css``
 
 const content = css`
     position: absolute;
@@ -74,7 +69,7 @@ interface IProps {
 export default function Movie({movie, onClick}: IProps) {
     const isPhone = usePhone();
     return (
-        <ButtonBase className={cx(item, {[itemPhone]: isPhone})} onClick={onClick}>
+        <ButtonBase className={item} onClick={onClick}>
             <img src={movie.poster_med} alt={movie.title} />
             <div className={cx({[content]: !isPhone})}>
                 <div className={container}>
@@ -85,10 +80,10 @@ export default function Movie({movie, onClick}: IProps) {
                         </strong> | Rating: {movie.rating}
                     </div>
                     <div></div>
-                    <div>{movie.genres.map(capitalize).join(', ')}</div>
-                    <div>
-                        {movie.actors}
-                    </div>
+                    <div>{movie.genres.map(capitalize).join(', ')}.</div>
+                    {movie.actors && <div>
+                        {movie.actors}.
+                    </div>}
                 </div>
             </div>
         </ButtonBase>

@@ -1,4 +1,4 @@
-import { css } from "@emotion/css"
+import { css, cx } from "@emotion/css"
 import { CSSProperties } from "react";
 
 const container = css`
@@ -11,9 +11,10 @@ const container = css`
 interface IProps {
     children: any;
     style?: CSSProperties;
+    className?: string;
 }
 export default function Center(props: IProps) {
-    return <div className={container} style={props.style}>
+    return <div className={cx(container, props.className)} style={props.style}>
         {props.children}
     </div>
 }

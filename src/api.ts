@@ -2,6 +2,7 @@ import { IList, ITitle } from "./interfaces";
 import qs, { ParsedUrlQuery } from "querystring";
 
 export async function fetchList(query: ParsedUrlQuery): Promise<IList> {
+    console.log({ query });
     const q = qs.stringify({
         sort: "seeds",
         short: "1",
@@ -14,7 +15,11 @@ export async function fetchList(query: ParsedUrlQuery): Promise<IList> {
     });
     const url = "https://api.pctapi.com/list?" + q;
     const response = await fetch(url);
-    return response.json();
+    const movies = (await response.json()) as IList;
+    movies.MovieList.forEach((movie) => {
+        movie.title = movie.title.replace(/\(\d+\)$/, "");
+    });
+    return movies;
 }
 
 export async function fetchTitle(id?: string): Promise<ITitle | undefined> {

@@ -7,6 +7,7 @@ export const container = css`
 export const phoneContainer = css`
     max-height: 80vh;
     overflow: auto;
+    padding-bottom: 3.5rem;
 `;
 
 export const imageContainer = css`

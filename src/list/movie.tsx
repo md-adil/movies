@@ -5,6 +5,9 @@ import { capitalize } from "lodash";
 import { usePhone } from "../hooks/device";
 import { IMovieList } from "../interfaces";
 import { bp } from "../libs/device";
+import { Star } from "@mui/icons-material";
+import { getDuration } from "../libs/time";
+
 
 const item = css`
     overflow: hidden;
@@ -16,8 +19,9 @@ const item = css`
     border-radius: 0.25rem;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
     ${bp.up.sm} {
-        height: 278px;
-        width: 185px;
+        flex: 1;
+        min-width: 160px;
+        max-width: 200px;
         &:hover {
             box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
             z-index: 1;
@@ -77,7 +81,7 @@ export default function Movie({movie, onClick}: IProps) {
                     <div>
                         <strong>
                             {movie.year}
-                        </strong> | Rating: {movie.rating}
+                        </strong> | <Star fontSize="inherit" className={css`margin-bottom: -2px;`} /> {movie.rating} | {getDuration(movie.runtime)}
                     </div>
                     <div></div>
                     <div>{movie.genres.map(capitalize).join(', ')}.</div>

@@ -8,11 +8,10 @@ import { bp } from "../libs/device";
 import { Star } from "@mui/icons-material";
 import { getDuration } from "../libs/time";
 
-
 const item = css`
     overflow: hidden;
-    background: rgba(0,0,0, .8);
-    transition: box-shadow .3s;
+    background: rgba(0, 0, 0, 0.8);
+    transition: box-shadow 0.3s;
     box-shadow: 0 0 0;
     margin: 0.25rem;
     border: 0.25rem solid #fff;
@@ -23,13 +22,13 @@ const item = css`
         min-width: 160px;
         max-width: 200px;
         &:hover {
-            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
             z-index: 1;
         }
     }
     ${bp.down.sm} {
         display: flex;
-        background: #fff;
+        background: rgba(0, 0, 0, 0.35);
         justify-content: flex-start;
         align-items: flex-start;
         border: 1px solid rgba(0, 0, 0, 0.12);
@@ -46,17 +45,19 @@ const item = css`
 const content = css`
     position: absolute;
     bottom: 0;
-    background: rgba(0,0,0,.4);
+    background: rgba(0, 0, 0, 0.4);
     color: #fff;
     max-height: 0;
-    transition: max-height .3s;
-    left: 0; right: 0;
+    transition: max-height 0.3s;
+    left: 0;
+    right: 0;
 `;
 
 const container = css`
     padding: 0.5rem 1rem;
     text-align: left;
-    h3, div {
+    h3,
+    div {
         padding-bottom: 0.25rem;
     }
 `;
@@ -67,29 +68,32 @@ const title = css`
 `;
 
 interface IProps {
-    movie: IMovieList
+    movie: IMovieList;
     onClick: () => void;
 }
-export default function Movie({movie, onClick}: IProps) {
+export default function Movie({ movie, onClick }: IProps) {
     const isPhone = usePhone();
     return (
         <ButtonBase className={item} onClick={onClick}>
             <img src={movie.poster_med} alt={movie.title} />
-            <div className={cx({[content]: !isPhone})}>
+            <div className={cx({ [content]: !isPhone })}>
                 <div className={container}>
                     <h3 className={title}>{movie.title}</h3>
                     <div>
-                        <strong>
-                            {movie.year}
-                        </strong> | <Star fontSize="inherit" className={css`margin-bottom: -2px;`} /> {movie.rating} | {getDuration(movie.runtime)}
+                        <strong>{movie.year}</strong> |{" "}
+                        <Star
+                            fontSize="inherit"
+                            className={css`
+                                margin-bottom: -2px;
+                            `}
+                        />{" "}
+                        {movie.rating} | {getDuration(movie.runtime)}
                     </div>
                     <div></div>
-                    <div>{movie.genres.map(capitalize).join(', ')}.</div>
-                    {movie.actors && <div>
-                        {movie.actors}.
-                    </div>}
+                    <div>{movie.genres.map(capitalize).join(", ")}.</div>
+                    {movie.actors && <div>{movie.actors}.</div>}
                 </div>
             </div>
         </ButtonBase>
-    )
+    );
 }

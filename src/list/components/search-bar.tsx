@@ -13,11 +13,6 @@ const container = css`
     background: rgb(0, 0, 0);
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.2) 100%);
     color: #fff;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 2;
 `;
 
 const content = css`
@@ -84,6 +79,7 @@ export default function SearchBar() {
                 <Card
                     ref={ref}
                     className={css`
+                        background-color: rgba(0, 0, 0, 0.35);
                         margin: 0.25rem;
                     `}
                 >

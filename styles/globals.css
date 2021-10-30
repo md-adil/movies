@@ -8,7 +8,9 @@ body {
 
 body {
   background: #f3f6f9;
-  /* background: #33333d; */
+  background: #33333d;
+  color: #fff;
+  padding-bottom: 3rem;
 }
 a {
   color: inherit;

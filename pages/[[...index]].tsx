@@ -6,16 +6,18 @@ import { useAsync } from "react-use";
 import Loader from "../src/components/loader";
 import Movies from "../src/list";
 import Center from "../src/components/center";
-import { Container, Pagination, PaginationItem } from "@mui/material";
+import { Pagination, PaginationItem } from "@mui/material";
 import qs from "querystring";
-import { Filters } from "../src/list/components/filters";
 import { css } from "@emotion/css";
 import SearchBar from "../src/list/components/search-bar";
+import { keys } from "../src/list/filters";
 
 const perPage = 74;
 const Home: NextPage = (props) => {
     const router = useRouter();
-    const { loading = true, value } = useAsync(() => fetchList(router.query), [router.query]);
+    const { loading = true, value } = useAsync(() => fetchList(router.query), [
+        ...keys.map(x => router.query[x])
+    ]);
     const handlePagination = (e: any, page: number) => {
         router.push(
             `?${qs.stringify({

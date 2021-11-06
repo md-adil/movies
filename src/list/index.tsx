@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import MovieItem from "./movie";
 import { IMovieList } from "../interfaces";
 import classes from "./index.module.scss";
@@ -7,6 +7,7 @@ import Movie from "../components/movie";
 import {cx, css} from "@emotion/css";
 import Empty from "./empty";
 import { bp } from "../libs/device";
+import {useRouter} from "next/router";
  
 const container = css`
   ${bp.down.sm} {
@@ -18,7 +19,14 @@ interface IProps {
     list: IMovieList[]
 }
 export default function Movies({list}: IProps) {
-  const [movie, setMovie] = useState<IMovieList>();
+  const router = useRouter();
+  const movie = useMemo(() => {
+    if (!router.query.index?.length) {
+      return null;
+    }
+    const id = router.query.index[0];
+    return list.find(x => x.imdb === id);
+  }, [router.query.index, list]);
   if (!list.length) {
     return (
       <Empty />
@@ -28,11 +36,10 @@ export default function Movies({list}: IProps) {
     <div>
       <div className={cx(classes.container, container)}>
         {list.map(m => (
-          <MovieItem key={m.id} onClick={() => setMovie(m)} movie={m} />
+          <MovieItem movie={m} key={m.id} />
         ))}
       </div>
-     
-      <Dialog maxWidth="md" open={Boolean(movie)} onClose={() => setMovie(undefined)}>
+      <Dialog maxWidth="md" open={Boolean(movie)} onClose={() => router.push('/', undefined, {shallow: true})}>
         <Movie id={movie?.imdb} />
       </Dialog>
     </div>

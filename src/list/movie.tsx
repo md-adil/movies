@@ -7,6 +7,7 @@ import { IMovieList } from "../interfaces";
 import { bp } from "../libs/device";
 import { Star } from "@mui/icons-material";
 import { getDuration } from "../libs/time";
+import Link from "next/link";
 
 const item = css`
     overflow: hidden;
@@ -69,12 +70,13 @@ const title = css`
 
 interface IProps {
     movie: IMovieList;
-    onClick: () => void;
+    href?: string;
 }
-export default function Movie({ movie, onClick }: IProps) {
+export default function Movie({ movie, href }: IProps) {
     const isPhone = usePhone();
     return (
-        <ButtonBase className={item} onClick={onClick}>
+        <Link href={`/${movie.imdb}`} passHref shallow>
+        <ButtonBase className={item} href={href!}>
             <img src={movie.poster_med} alt={movie.title} />
             <div className={cx({ [content]: !isPhone })}>
                 <div className={container}>
@@ -95,5 +97,6 @@ export default function Movie({ movie, onClick }: IProps) {
                 </div>
             </div>
         </ButtonBase>
+        </Link>
     );
 }

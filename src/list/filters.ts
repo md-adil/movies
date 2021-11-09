@@ -33,4 +33,4 @@ export const sorts = [{ label: "Date Added", value: "dateadded" }, "Title", "Yea
     typeof x === "string" ? { label: x, value: x.toLowerCase() } : x
 );
 
-export const keys = ["genre", "quality", "sort", "keywords"] as const;
+export const keys = ["genre", "quality", "sort", "keywords", "page"] as const;

@@ -75,7 +75,7 @@ interface IProps {
 export default function Movie({ movie, href }: IProps) {
     const isPhone = usePhone();
     return (
-        <Link href={`/${movie.imdb}`} passHref shallow>
+        <Link href={`/${movie.imdb}${location.search}`} passHref shallow>
         <ButtonBase className={item} href={href!}>
             <img src={movie.poster_med} alt={movie.title} />
             <div className={cx({ [content]: !isPhone })}>

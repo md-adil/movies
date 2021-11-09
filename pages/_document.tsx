@@ -1,49 +1,51 @@
+/* eslint-disable react/display-name */
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import * as React from "react";
 import createEmotionServer from "@emotion/server/create-instance";
-import { cache } from "@emotion/css";
+import createCache from '@emotion/cache';
 
-export const renderStatic = async (html: string) => {
-    if (html === undefined) {
-        throw new Error("did you forget to return html from renderToString?");
-    }
-    const { extractCritical } = createEmotionServer(cache);
-    const { ids, css } = extractCritical(html);
-
-    return { html, ids, css };
-};
-
-export default class AppDocument extends Document {
-    static async getInitialProps(ctx: any) {
-        const page = await ctx.renderPage();
-        // const { css, ids } = await renderStatic(page.html)
-        const initialProps = await Document.getInitialProps(ctx);
-        return {
-            ...initialProps,
-            styles: (
-                <React.Fragment>
-                    {initialProps.styles}
-                    <link rel="preconnect" href="https://fonts.googleapis.com" />
-                    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-                    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,400;1,700&display=swap" rel="stylesheet" />
-                    {/* <style
-            data-emotion={`css ${ids.join(' ')}`}
-            dangerouslySetInnerHTML={{ __html: css }}
-          /> */}
-                </React.Fragment>
-            ),
-        };
-    }
-
-    render() {
-        return (
-            <Html>
-                <Head />
-                <body>
-                    <Main />
-                    <NextScript />
-                </body>
-            </Html>
-        );
-    }
+export default function MyDocument() {
+    return (
+        <Html>
+            <Head>
+                <meta name="theme-color" content="#33333d" />
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+                {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+                <link
+                  href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,400;1,700&display=swap"
+                  rel="stylesheet"
+                />
+            </Head>
+            <body>
+                <Main />
+                <NextScript />
+            </body>
+        </Html>
+    );
 }
+MyDocument.getInitialProps = async (ctx: any) => {
+    const originalRenderPage = ctx.renderPage;
+    const cache = createCache({ key: 'css' });
+    const { extractCriticalToChunks } = createEmotionServer(cache);
+    ctx.renderPage = () =>
+      originalRenderPage({
+        enhanceApp: (App: any) => (props: any) => <App emotionCache={cache} {...props} />,
+      });
+  
+    const initialProps = await Document.getInitialProps(ctx);
+    const emotionStyles = extractCriticalToChunks(initialProps.html);
+    const emotionStyleTags = emotionStyles.styles.map((style) => (
+      <style
+        data-emotion={`${style.key} ${style.ids.join(' ')}`}
+        key={style.key}
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: style.css }}
+      />
+    ));
+  
+    return {
+      ...initialProps,
+      styles: [...React.Children.toArray(initialProps.styles), ...emotionStyleTags],
+    };
+};

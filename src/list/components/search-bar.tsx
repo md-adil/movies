@@ -1,37 +1,16 @@
-import { css, cx, injectGlobal } from "@emotion/css";
-import { Filter, Menu, Search } from "@mui/icons-material";
+/** @jsxImportSource @emotion/react */
+import { css  } from "@emotion/react";
+import { Menu, Search } from "@mui/icons-material";
 import Close from "@mui/icons-material/Close";
-import { Button, Card, CardActions, CardHeader, Chip, Collapse, Grid, IconButton, Input } from "@mui/material";
+import { Card, Chip, Collapse, Grid, IconButton, Input } from "@mui/material";
 import router, { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { bp } from "../../libs/device";
 import { SearchBox, useQueryState } from "../search";
 import { keys } from "../filters";
+
 import qs from "../../libs/qs";
-
-const container = css`
-    background: rgb(0, 0, 0);
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.2) 100%);
-    color: #fff;
-`;
-
-const content = css`
-    padding: 1rem;
-`;
-const contentSearchBtn = css`
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row-reverse;
-    align-items: flex-start;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    ${bp.down.sm} {
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
-    }
-`;
+import * as classes from "./search-bar.style";
 
 export default function SearchBar() {
     const [focused, setFocused] = useState(false);
@@ -44,18 +23,14 @@ export default function SearchBar() {
     };
     return (
         <>
-            <div className={cx(container)}>
+            <div css={classes.container}>
                 <Collapse in={!focused}>
-                    <Grid container className={contentSearchBtn}>
+                    <Grid container css={classes.contentSearchBtn}>
                         <Grid
                             item
                             xs={12}
                             sm={4}
-                            className={css`
-                                display: flex;
-                                justify-content: flex-end;
-                                flex: 1;
-                            `}
+                            css={classes.grid}
                         >
                             <SearchForm />
                             <IconButton color="inherit" onClick={handleFocus}>
@@ -66,7 +41,7 @@ export default function SearchBar() {
                             item
                             xs={12}
                             sm={8}
-                            className={css`
+                            css={css`
                                 flex: 2;
                             `}
                         >
@@ -78,12 +53,12 @@ export default function SearchBar() {
             <Collapse in={focused} unmountOnExit>
                 <Card
                     ref={ref}
-                    className={css`
+                    css={css`
                         background-color: rgba(0, 0, 0, 0.35);
                         margin: 0.25rem;
                     `}
                 >
-                    <div className={content}>
+                    <div css={classes.content}>
                         <SearchBox onClose={() => setFocused(false)} />
                     </div>
                 </Card>
@@ -107,7 +82,7 @@ function SelectedFilters() {
                         <Chip
                             size="small"
                             key={key}
-                            className={css`
+                            css={css`
                                 margin-left: 0.4rem;
                                 margin-bottom: 0.25rem;
                                 margin-top: 0.25rem;
@@ -142,7 +117,7 @@ function SearchForm() {
     return (
         <form
             onSubmit={handleSubmit}
-            className={css`
+            css={css`
                 display: flex;
                 justify-content: flex-end;
             `}
@@ -150,18 +125,11 @@ function SearchForm() {
             <Input
                 inputRef={ref}
                 onBlur={() => setCollapsed(true)}
-                className={cx(
-                    css`
-                        width: 0px;
-                        transition: width 0.3s;
-                        overflow: hidden;
-                    `,
-                    {
-                        [css`
-                            width: 250px;
-                        `]: !collapsed,
-                    }
-                )}
+                css={css`
+                    width: ${collapsed ? 0 : 250}px;
+                    transition: width 0.3s;
+                    overflow: hidden;
+                `}
                 type="text"
                 name="keywords"
                 style={{ color: "inherit" }}

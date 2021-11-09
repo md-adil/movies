@@ -1,7 +1,6 @@
 import { Fragment, useMemo, useState } from "react";
 import MovieItem from "./movie";
 import { IMovieList } from "../interfaces";
-import classes from "./index.module.scss";
 import Dialog from "../components/dialog";
 import Movie from "../components/movie";
 import {cx, css} from "@emotion/css";
@@ -10,6 +9,9 @@ import { bp } from "../libs/device";
 import {useRouter} from "next/router";
  
 const container = css`
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
   ${bp.down.sm} {
     flex-direction: column;
   }
@@ -22,11 +24,10 @@ export default function Movies({list}: IProps) {
   const router = useRouter();
   const movie = useMemo(() => {
     if (!router.query.index?.length) {
-      return null;
+      return;
     }
-    const id = router.query.index[0];
-    return list.find(x => x.imdb === id);
-  }, [router.query.index, list]);
+    return router.query.index[0];
+  }, [router.query.index]);
   if (!list.length) {
     return (
       <Empty />
@@ -34,13 +35,13 @@ export default function Movies({list}: IProps) {
   }
   return (
     <div>
-      <div className={cx(classes.container, container)}>
+      <div className={container}>
         {list.map(m => (
           <MovieItem movie={m} key={m.id} />
         ))}
       </div>
-      <Dialog maxWidth="md" open={Boolean(movie)} onClose={() => router.push('/', undefined, {shallow: true})}>
-        <Movie id={movie?.imdb} />
+      <Dialog maxWidth="md" open={Boolean(movie)} onClose={() => router.push(`/${location.search}`, undefined, {shallow: true})}>
+        <Movie id={movie} />
       </Dialog>
     </div>
   )

@@ -87,7 +87,6 @@ export default function Movie(props: IProps) {
                     {movie.year} <Link target="imdb" href={`https://www.imdb.com/title/${movie.imdb}`}>Rating {movie.rating}</Link>
                     <Link className={css`display: flex;text-decoration: none;align-items: center;`} target="youtube-trailer" href={`https://www.youtube.com/watch?v=${movie.trailer}`}>Trailer &nbsp;<YouTube /></Link>
                 </div>
-               
                 <Help />
                 <Downloads movie={movie} />
             </Grid>

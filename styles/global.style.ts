@@ -9,9 +9,11 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 body {
-  background: #33333d !important;
-  color: #fff !important;
+  background: #33333d;
+  color: #fff;
   padding-bottom: 3rem;
+  font-size: 0.875rem;
+  line-height: normal;
 }
 a {
   color: inherit;

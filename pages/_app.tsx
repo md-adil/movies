@@ -14,8 +14,8 @@ function MyApp({ Component, pageProps, emotionCache = clientSideEmotionCache }: 
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-      <Global styles={global} />
       <CssBaseline />
+      <Global styles={global} />
       <Component {...pageProps} />
     </CacheProvider>
   );

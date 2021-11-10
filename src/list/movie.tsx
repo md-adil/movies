@@ -65,6 +65,7 @@ const container = css`
 
 const title = css`
     font-weight: 500;
+    font-size: 1.1rem;
     margin: 0;
 `;
 

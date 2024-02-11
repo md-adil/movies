@@ -1,6 +1,5 @@
-import { intervalToDuration } from "date-fns";
+import { formatDistance } from "date-fns";
 
 export function getDuration(runtime: number) {
-  const i = intervalToDuration({ start: 0, end: runtime * 60 * 1000 });
-  return `${i.hours}:${i.minutes}`;
+  return formatDistance(0, runtime * 60 * 1000, { includeSeconds: true });
 }

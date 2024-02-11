@@ -1,5 +1,10 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
+const nextConfig = {
+  basePath: process.env.BASE,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  output: "export",
   exportPathMap: async function (_, { dev }) {
     if (dev) {
       return;
@@ -14,3 +19,5 @@ module.exports = {
     API_SERVER: process.env.API_SERVER,
   },
 };
+
+export default nextConfig;

@@ -87,7 +87,7 @@ function transform(x: Movie): IMovieList {
   return {
     id: x._id,
     imdb: x.imdb_id,
-    rating: x.rating.votes,
+    rating: x.rating.percentage / 10,
     artwork: x.images.fanart,
     genres: x.genres,
     runtime: Number(x.runtime),

@@ -1,6 +1,7 @@
 {
   "name": "popcorntime",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "homepage": "https://md-adil.github.io/movies",
   "repository": {
@@ -12,9 +13,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "predeploy": "yarn build",
     "tc": "yarn tsc --noEmit",
-    "deploy": "next export && rm -r out/404.html && cp out/index.html out/404.html && gh-pages -t -d out"
+    "deploy": "next build && rm -r out/404.html && cp out/index.html out/404.html && gh-pages -t -d out"
   },
   "dependencies": {
     "@babel/core": "^7.23.9",

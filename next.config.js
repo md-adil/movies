@@ -4,7 +4,7 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  output: "export",
+  output: process.env.OUTPUT,
   exportPathMap: async function (_, { dev }) {
     if (dev) {
       return;

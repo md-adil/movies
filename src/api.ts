@@ -1,7 +1,7 @@
 import { IMovie, IMovieList } from "./interfaces";
 import { ParsedUrlQuery } from "querystring";
 
-const apiServer = process.env.API_SERVER;
+const apiServer = "/api";
 
 function quality(img: string, width: number) {
   return img.replace("w500", `w${width}`);

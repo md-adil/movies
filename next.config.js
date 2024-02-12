@@ -5,6 +5,9 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   output: process.env.OUTPUT,
+  async rewrites() {
+    return { beforeFiles: [{ source: "/api/:path*", destination: `${process.env.API_SERVER}/:path*` }] };
+  },
   exportPathMap: async function (_, { dev }) {
     if (dev) {
       return;

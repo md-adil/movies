@@ -23,4 +23,6 @@ const nextConfig = {
   },
 };
 
+console.log({ API_SERVER: process.env.API_SERVER });
+
 export default nextConfig;

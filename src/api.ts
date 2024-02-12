@@ -3,6 +3,10 @@ import { ParsedUrlQuery } from "querystring";
 
 const apiServer = process.env.API_SERVER;
 
+function quality(img: string, width: number) {
+  return img.replace("w500", `w${width}`);
+}
+
 interface Movie {
   _id: string;
   imdb_id: string;
@@ -88,7 +92,7 @@ function transform(x: Movie): IMovieList {
     id: x._id,
     imdb: x.imdb_id,
     rating: x.rating.percentage / 10,
-    artwork: x.images.fanart,
+    artwork: quality(x.images.poster, 200),
     genres: x.genres,
     runtime: Number(x.runtime),
     title: x.title,

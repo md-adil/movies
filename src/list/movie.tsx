@@ -8,7 +8,20 @@ import { bp } from "../libs/device";
 import { Star } from "@mui/icons-material";
 import { getDuration } from "../libs/time";
 import Link from "next/link";
+const description = css`
+  /* min-height: 45%; */
+`;
 
+const content = css`
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  max-height: 0;
+  transition: max-height 0.3s;
+  left: 0;
+  right: 0;
+`;
 const item = css`
   overflow: hidden;
   background: rgba(0, 0, 0, 0.8);
@@ -38,17 +51,9 @@ const item = css`
       width: 80px;
     }
   }
-`;
-
-const content = css`
-  position: absolute;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
-  color: #fff;
-  max-height: 0;
-  transition: max-height 0.3s;
-  left: 0;
-  right: 0;
+  &:hover > div {
+    max-height: 70%;
+  }
 `;
 
 const container = css`
@@ -60,9 +65,6 @@ const container = css`
   }
 `;
 
-const description = css`
-  min-height: 45%;
-`;
 const title = css`
   font-weight: 500;
   font-size: 1.1rem;

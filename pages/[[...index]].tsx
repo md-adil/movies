@@ -1,5 +1,4 @@
 import type { NextPage } from "next";
-import { fetchList } from "../src/api";
 import Layout from "../src/components/layout";
 import { useRouter } from "next/router";
 import { useAsync } from "react-use";
@@ -11,6 +10,12 @@ import qs from "querystring";
 import { css } from "@emotion/css";
 import SearchBar from "../src/list/components/search-bar";
 import { keys } from "../src/list/filters";
+import { client } from "src/axios";
+
+async function fetchList(params: any) {
+  const { data } = await client.get("/movies", { params });
+  return data;
+}
 
 const perPage = 74;
 const Home: NextPage = (props) => {

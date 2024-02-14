@@ -1,29 +1,53 @@
-export interface IMovieList {
-  id: string;
-  imdb: string;
-  actors: string;
-  genres: string[];
-  artwork: string;
-  rating: number;
-  runtime: number;
+export interface Movie {
+  _id: string;
+  imdb_id: string;
+  tmdb_id: number;
   title: string;
-  year: number;
-}
-
-export interface IMovie extends IMovieList {
-  directors: string;
-  poster: string;
-  items: Item[];
-  description: string;
+  year: string;
+  original_language: string;
+  exist_translations: string[];
+  contextLocale: string;
+  synopsis: string;
+  runtime: string;
+  released: number;
+  certification: string;
+  torrents: Torrents;
   trailer: string;
+  genres: string[];
+  images: Images;
+  rating: Rating;
 }
 
-interface Item {
-  id: string;
-  language: string;
+interface Rating {
+  percentage: number;
+  watching: number;
+  votes: number;
+  loved: number;
+  hated: number;
+}
+
+interface Images {
+  poster: string;
+  fanart: string;
+  banner: string;
+}
+
+export interface Torrents {
+  [lang: string]: TorrentQuality;
+}
+
+interface TorrentQuality {
+  [quality: string]: Torrent;
+}
+
+interface Torrent {
+  url: string;
+  provider: string;
+  source: string;
+  title: string;
   quality: string;
-  size_bytes: number;
-  torrent_magnet: string;
-  torrent_peers: number;
-  torrent_seeds: number;
+  seed: number;
+  peer: number;
+  size: string;
+  filesize: string;
 }

@@ -3,6 +3,7 @@
 /node_modules
 .pnp.*
 .yarn/*
+!.yarn/sdks
 
 # testing
 /coverage

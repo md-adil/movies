@@ -3,11 +3,11 @@ import { css, cx } from "@emotion/css";
 import { ButtonBase } from "@mui/material";
 import { capitalize } from "lodash";
 import { usePhone } from "../hooks/device";
-import { IMovieList } from "../interfaces";
 import { bp } from "../libs/device";
 import { Star } from "@mui/icons-material";
 import { getDuration } from "../libs/time";
 import Link from "next/link";
+import type { IMovieList } from "./list-service";
 const description = css`
   /* min-height: 45%; */
 `;

@@ -5,4 +5,7 @@ export const axios = baseAxios.create({
 
 export const client = baseAxios.create({
   baseURL: "/api",
+  headers: {
+    Accept: "application/json",
+  },
 });

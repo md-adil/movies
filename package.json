@@ -1,5 +1,5 @@
 {
-  "name": "popcorntime",
+  "name": "movies",
   "version": "0.1.0",
   "type": "module",
   "private": true,
@@ -44,7 +44,6 @@
     "@types/ua-parser-js": "^0.7.39",
     "eslint": "^8.56.0",
     "eslint-config-next": "^14.1.0",
-    "gh-pages": "^6.1.1",
     "typescript": "^5.3.3"
   }
 }

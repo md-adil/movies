@@ -1,43 +1,49 @@
 import { css } from "@emotion/css";
+import { bp } from "src/libs/device";
 
 export const container = css`
-    display: flex;
+  display: flex;
 `;
 
 export const phoneContainer = css`
-    max-height: 80vh;
-    overflow: auto;
-    padding-bottom: 3.5rem;
+  max-height: 80vh;
+  overflow: auto;
+  padding-bottom: 3.5rem;
 `;
 
 export const imageContainer = css`
-    > div {
-        display: block !important;
-    }
+  > div {
+    display: block !important;
+  }
 `;
 
 export const poster = css`
-    display: block;
-    max-width: 100%;
+  display: block;
+  max-width: 100%;
+  ${bp.down.sm} {
+    width: 100%;
+    object-fit: cover;
+    height: 40vh;
+  }
 `;
 
 export const title = css`
-    font-weight: 500;
+  font-weight: 500;
 `;
 
 export const content = css`
-    padding: 1rem;
-    overflow: auto;
+  padding: 1rem;
+  overflow: auto;
 `;
 
 export const downloads = css`
-    display: flex;
-    flex-direction: column;
-    margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
 `;
 
 export const download = css`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;

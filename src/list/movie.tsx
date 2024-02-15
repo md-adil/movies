@@ -27,14 +27,14 @@ const item = css`
   background: rgba(0, 0, 0, 0.8);
   transition: box-shadow 0.3s;
   box-shadow: 0 0 0;
-  margin: 0.25rem;
-  border: 0.25rem solid #fff;
+  margin: 0.5rem;
+  /* border: 0.25rem solid #fff; */
   border-radius: 0.25rem;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
   ${bp.up.sm} {
     flex: 1;
-    min-width: 160px;
-    max-width: 200px;
+    min-width: 190px;
+    max-width: 210px;
     &:hover {
       box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
       z-index: 1;
@@ -47,12 +47,17 @@ const item = css`
     align-items: flex-start;
     border: 1px solid rgba(0, 0, 0, 0.12);
     box-shadow: none;
-    img {
-      width: 80px;
-    }
   }
   &:hover > div {
     max-height: 70%;
+  }
+`;
+
+const artwork = css`
+  width: 100%;
+  object-fit: cover;
+  ${bp.down.sm} {
+    width: 80px;
   }
 `;
 
@@ -78,9 +83,9 @@ interface IProps {
 export default function Movie({ movie, href }: IProps) {
   const isPhone = usePhone();
   return (
-    <Link href={`/${movie.imdb}${location.search}`} passHref shallow>
-      <ButtonBase className={item} href={href!}>
-        <img src={movie.artwork} alt={movie.title} style={{ objectFit: "contain" }} />
+    <Link href={`/${movie.imdb}/${location.search}`} legacyBehavior passHref shallow>
+      <ButtonBase className={item}>
+        <img className={artwork} src={movie.artwork} alt={movie.title} />
         <div className={cx({ [content]: !isPhone }, description)}>
           <div className={container}>
             <h3 className={title}>{movie.title}</h3>

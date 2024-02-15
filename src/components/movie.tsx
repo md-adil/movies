@@ -39,18 +39,21 @@ const centerLoading = css`
 `;
 const healthBox = css`
   padding: 0.2rem 0.5rem;
-  width: 75%;
   border: 2px solid;
   text-align: center;
   display: inline-block;
   border-radius: 1rem;
+  ${bp.up.sm} {
+    width: 75%;
+  }
 `;
+
 function imageLoader({ src }: ImageLoaderProps) {
   return src;
 }
 
 async function getMovie(id: string) {
-  const { data } = await client.get<IMovie>(`/movies/${id}`);
+  const { data } = await client.get<IMovie>(`/movies/${id}/`);
   return data;
 }
 

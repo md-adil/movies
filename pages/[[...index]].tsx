@@ -13,7 +13,7 @@ import { keys } from "../src/list/filters";
 import { client } from "src/axios";
 
 async function fetchList(params: any) {
-  const { data } = await client.get("/movies", { params });
+  const { data } = await client.get("/movies/", { params });
   return data;
 }
 

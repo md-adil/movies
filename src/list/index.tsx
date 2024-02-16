@@ -1,21 +1,10 @@
-import { Fragment, useMemo, useState } from "react";
+import { useMemo } from "react";
 import MovieItem from "./movie";
 import Dialog from "../components/dialog";
 import Movie from "../components/movie";
-import { cx, css } from "@emotion/css";
 import Empty from "./empty";
-import { bp } from "../libs/device";
 import { useRouter } from "next/router";
 import type { IMovieList } from "./list-service";
-
-const container = css`
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  ${bp.down.sm} {
-    flex-direction: column;
-  }
-`;
 
 interface IProps {
   list: IMovieList[];
@@ -33,7 +22,7 @@ export default function Movies({ list }: IProps) {
   }
   return (
     <div>
-      <div className={container}>
+      <div className="flex flex-wrap justify-center gap-2 sm:gap-5">
         {list.map((m) => (
           <MovieItem movie={m} key={m.id} />
         ))}

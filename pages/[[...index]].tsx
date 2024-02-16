@@ -11,13 +11,14 @@ import { css } from "@emotion/css";
 import SearchBar from "../src/list/components/search-bar";
 import { keys } from "../src/list/filters";
 import { client } from "src/axios";
+import type { IMovieList } from "src/list/list-service";
 
 async function fetchList(params: any) {
-  const { data } = await client.get("/movies/", { params });
+  const { data } = await client.get<IMovieList[]>("/movies/", { params });
   return data;
 }
 
-const perPage = 74;
+const perPage = 50;
 const Home: NextPage = (props) => {
   const router = useRouter();
   const { loading = true, value } = useAsync(() => fetchList(router.query), [...keys.map((x) => router.query[x])]);
@@ -41,8 +42,8 @@ const Home: NextPage = (props) => {
       ) : (
         <Movies list={value ?? []} />
       )}
-      {(value?.length ?? 0) > perPage && (
-        <div style={{ padding: "1rem 0", display: "flex", justifyContent: "flex-end" }}>
+      {(value?.length ?? 0) >= perPage && (
+        <div className="container px-4 py-4 mx-auto flex justify-end">
           <Pagination
             className={css`
               color: #fff;

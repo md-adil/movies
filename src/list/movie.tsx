@@ -15,7 +15,7 @@ interface IProps {
 export default function Movie({ movie, href }: IProps) {
   return (
     <Link href={`/${movie.imdb}/${location.search}`} legacyBehavior passHref shallow>
-      <ButtonBase className="flex flex-col shadow overflow-hidden flex-1 min-w-[170px] max-w-[300px] md:min-w-[300px]">
+      <ButtonBase className="flex flex-col shadow overflow-hidden flex-1 min-w-[170px] max-w-[280px] md:min-w-[300px]">
         <img className="w-full object-cover overflow-hidden rounded" src={movie.artwork} alt={movie.title} />
         <div className="flex justify-between items-center w-full py-2 px-1">
           <span className="inline-flex items-center">

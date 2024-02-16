@@ -47,7 +47,7 @@ export function transform(x: Movie): IMovieList {
     id: x._id,
     imdb: x.imdb_id,
     rating: x.rating.percentage / 10,
-    artwork: quality(x.images.poster, 200),
+    artwork: quality(x.images.poster, 300),
     genres: x.genres,
     runtime: Number(x.runtime),
     title: x.title,

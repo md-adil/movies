@@ -1,10 +1,6 @@
 interface IProps {
-    children: any;
+  children: any;
 }
-export default function Layout({children}: IProps) {
-    return (
-        <div>
-            {children}
-        </div>
-    )
+export default function Layout({ children }: IProps) {
+  return <div>{children}</div>;
 }

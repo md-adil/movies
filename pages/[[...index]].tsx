@@ -40,7 +40,9 @@ const Home: NextPage = (props) => {
           <Loader />
         </Center>
       ) : (
-        <Movies list={value ?? []} />
+        <div className="p-4">
+          <Movies list={value ?? []} />
+        </div>
       )}
       {(value?.length ?? 0) >= perPage && (
         <div className="container px-4 py-4 mx-auto flex justify-end">

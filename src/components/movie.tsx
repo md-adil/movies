@@ -90,10 +90,7 @@ export default function Movie(props: IProps) {
       <Grid item xs={12} sm={7} className={classes.content}>
         <h3 className={classes.title}>{movie.title}</h3>
         <div className={gap}>{getDuration(movie.runtime)}</div>
-        <div className={gap} style={{ color: "#727272" }}>
-          {movie.description}
-        </div>
-
+        <div className={`${gap} text-slate`}>{movie.description}</div>
         <div className={gap}>
           {movie.genres.map((gen) => (
             <Chip

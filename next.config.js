@@ -1,3 +1,5 @@
+import createPWA from "next-pwa";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   basePath: process.env.BASE,
@@ -21,4 +23,11 @@ const nextConfig = {
 
 console.log({ API_SERVER: process.env.API_SERVER });
 
-export default nextConfig;
+const withPWA = createPWA({
+  dest: "public",
+  disable: process.env.NODE_ENV === "development",
+  register: true,
+  skipWaiting: true,
+});
+
+export default withPWA(nextConfig);

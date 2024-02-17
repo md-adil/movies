@@ -8,8 +8,6 @@ export const global = css`
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   }
   body {
-    background: #202027;
-    color: #fff;
     padding-bottom: 3rem;
     font-size: 0.875rem;
     line-height: normal;

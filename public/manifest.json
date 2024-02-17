@@ -1,0 +1,23 @@
+{
+  "id": "movies7",
+  "theme_color": "#ffffff",
+  "background_color": "#202027",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "name": "Movies7",
+  "short_name": "7",
+  "description": "Movies on your fingertip",
+  "icons": [
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ]
+}

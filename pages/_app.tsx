@@ -7,13 +7,26 @@ import { Global } from "@emotion/react";
 import { global } from "../styles/global.style";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "src/theme";
-import { QueryClient, QueryClientProvider, type QueryClientConfig } from "@tanstack/react-query";
-import { useState } from "react";
+import { QueryClient, type QueryClientConfig } from "@tanstack/react-query";
+import { PersistQueryClientProvider as QueryClientProvider } from "@tanstack/react-query-persist-client";
+import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 
+import { useState } from "react";
+const persister = createSyncStoragePersister({
+  storage: typeof window !== "undefined" ? window.localStorage : null,
+});
 const clientSideEmotionCache = createCache({ key: "css" });
 
 const queryOption: QueryClientConfig = {
-  defaultOptions: { queries: { refetchOnMount: false, refetchOnWindowFocus: false, networkMode: "offlineFirst", staleTime: 30 * 60 * 1000 } },
+  defaultOptions: {
+    queries: {
+      gcTime: 1000 * 60 * 60 * 24, // 24 hours
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      networkMode: "offlineFirst",
+      // staleTime: 1000 * 60 * 60 * 24,
+    },
+  },
 };
 
 function MyApp({ Component, pageProps, emotionCache = clientSideEmotionCache }: any) {
@@ -21,7 +34,7 @@ function MyApp({ Component, pageProps, emotionCache = clientSideEmotionCache }: 
   return (
     <CacheProvider value={emotionCache}>
       <ThemeProvider theme={theme}>
-        <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={queryClient} persistOptions={{ persister }}>
           <Head>
             <meta name="viewport" content="initial-scale=1, width=device-width" />
           </Head>

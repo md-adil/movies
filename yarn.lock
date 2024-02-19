@@ -2208,6 +2208,37 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/query-persist-client-core@npm:5.22.2":
+  version: 5.22.2
+  resolution: "@tanstack/query-persist-client-core@npm:5.22.2"
+  dependencies:
+    "@tanstack/query-core": "npm:5.22.2"
+  checksum: 10c0/49a192e34229a83e122532656b55fcb95a1795e7ceec37066de01755cd0d0fba2a069dcacc705e856882485730e85d3152edd16a4ecaeda739db1b1835b5dba9
+  languageName: node
+  linkType: hard
+
+"@tanstack/query-sync-storage-persister@npm:^5.22.2":
+  version: 5.22.2
+  resolution: "@tanstack/query-sync-storage-persister@npm:5.22.2"
+  dependencies:
+    "@tanstack/query-core": "npm:5.22.2"
+    "@tanstack/query-persist-client-core": "npm:5.22.2"
+  checksum: 10c0/555951f68e544b8ea105c45a55d317277c0fce5eb3d5df668f0748c6363b226716a95f3a2245f3ba17855e3c21c7ae1f53b1be544d2a067356a653b6d05b7776
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query-persist-client@npm:^5.22.2":
+  version: 5.22.2
+  resolution: "@tanstack/react-query-persist-client@npm:5.22.2"
+  dependencies:
+    "@tanstack/query-persist-client-core": "npm:5.22.2"
+  peerDependencies:
+    "@tanstack/react-query": ^5.22.2
+    react: ^18.0.0
+  checksum: 10c0/8cdb012bdbbc67052e489beaa99b40b5eae754d9c2815471ba00d1f6139bee7c6369fbd3ab21bd544201c73f83f2007f7700c5ac14a5ae0f657e6cb9a12de08e
+  languageName: node
+  linkType: hard
+
 "@tanstack/react-query@npm:^5.22.2":
   version: 5.22.2
   resolution: "@tanstack/react-query@npm:5.22.2"
@@ -5823,7 +5854,9 @@ __metadata:
     "@emotion/styled": "npm:^11.11.0"
     "@mui/icons-material": "npm:^5.15.7"
     "@mui/material": "npm:^5.15.7"
+    "@tanstack/query-sync-storage-persister": "npm:^5.22.2"
     "@tanstack/react-query": "npm:^5.22.2"
+    "@tanstack/react-query-persist-client": "npm:^5.22.2"
     "@types/lodash": "npm:^4.14.202"
     "@types/next-pwa": "npm:^5"
     "@types/node": "npm:^20.11.16"

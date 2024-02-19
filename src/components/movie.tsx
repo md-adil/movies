@@ -45,7 +45,10 @@ const healthBox = css`
   }
 `;
 
-async function getMovie(id: string) {
+async function getMovie(id?: string) {
+  if (!id) {
+    return null;
+  }
   const { data } = await client.get<IMovie>(`/movies/${id}/`);
   return data;
 }
@@ -55,7 +58,7 @@ interface IProps {
 }
 export default function Movie(props: IProps) {
   const isPhone = usePhone();
-  const { isLoading: loading, data: movie } = useQuery({ queryFn: () => getMovie(props.id!), queryKey: ["/movies/" + props.id] });
+  const { isLoading: loading, data: movie } = useQuery({ queryFn: () => getMovie(props.id), queryKey: ["/movies/" + props.id] });
 
   const handleDownload = () => {
     document.getElementById("downloads")?.scrollIntoView({ behavior: "smooth" });

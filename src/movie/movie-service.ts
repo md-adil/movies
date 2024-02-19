@@ -4,7 +4,6 @@ import type { IMovieList } from "../list/list-service";
 import { movieStore } from "./store";
 import type { Movie, Torrents } from "../interfaces";
 export interface IMovie extends IMovieList {
-  directors: string;
   poster: string;
   items: Item[];
   description: string;
@@ -55,11 +54,18 @@ function transformTorrent(torrents: Torrents): IMovie["items"] {
   return out;
 }
 
+function getPoster(image: Movie["images"]) {
+  let link = image.poster;
+  if (!link.startsWith("http:")) {
+    link.replace("http:", "https:");
+  }
+  return link;
+}
+
 function transform(x: Movie): IMovie {
   return {
     ...baseTransform(x),
-    directors: "",
-    poster: x.images.poster,
+    poster: getPoster(x.images),
     trailer: x.trailer,
     items: transformTorrent(x.torrents),
     description: x.synopsis,

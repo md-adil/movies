@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import Layout from "../src/components/layout";
 import { useRouter } from "next/router";
-import { useAsync } from "react-use";
 import Loader from "../src/components/loader";
 import Movies from "../src/list";
 import Center from "../src/components/center";
@@ -21,7 +20,7 @@ async function fetchList(params: any) {
 const perPage = 50;
 const Home: NextPage = (props) => {
   const router = useRouter();
-  const { isLoading: loading = true, data: value = [] } = useQuery({ queryKey: ["movies", router.query], queryFn: () => fetchList(router.query) });
+  const { isLoading: loading = true, data: value = [] } = useQuery({ queryKey: ["movies", ...keys.map((x) => router.query[x])], queryFn: () => fetchList(router.query) });
   const handlePagination = (e: any, page: number) => {
     router.push(
       `?${qs.stringify({

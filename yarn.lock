@@ -1903,6 +1903,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nebulus/react-state@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "@nebulus/react-state@npm:0.0.1"
+  dependencies:
+    events: "npm:^3.3.0"
+  peerDependencies:
+    react: ">=16.8"
+  checksum: 10c0/c5e0c7d4ddd9ce2e2a1cee83bb6294dcd5982c9e7748fcc86ad9497cb9cf24f853b10d96612d0ce5134fc138086710ef26559ee003ba9e57a15e484bcbdfa390
+  languageName: node
+  linkType: hard
+
 "@next/env@npm:13.5.6":
   version: 13.5.6
   resolution: "@next/env@npm:13.5.6"
@@ -4075,6 +4086,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"events@npm:^3.3.0":
+  version: 3.3.0
+  resolution: "events@npm:3.3.0"
+  checksum: 10c0/d6b6f2adbccbcda74ddbab52ed07db727ef52e31a61ed26db9feb7dc62af7fc8e060defa65e5f8af9449b86b52cc1a1f6a79f2eafcf4e62add2b7a1fa4a432f6
+  languageName: node
+  linkType: hard
+
 "exponential-backoff@npm:^3.1.1":
   version: 3.1.1
   resolution: "exponential-backoff@npm:3.1.1"
@@ -5805,6 +5823,7 @@ __metadata:
     "@emotion/styled": "npm:^11.11.0"
     "@mui/icons-material": "npm:^5.15.7"
     "@mui/material": "npm:^5.15.7"
+    "@nebulus/react-state": "npm:^0.0.1"
     "@types/lodash": "npm:^4.14.202"
     "@types/next-pwa": "npm:^5"
     "@types/node": "npm:^20.11.16"

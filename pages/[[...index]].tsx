@@ -12,7 +12,7 @@ import SearchBar from "../src/list/components/search-bar";
 import { keys } from "../src/list/filters";
 import { client } from "src/axios";
 import type { IMovieList } from "src/list/list-service";
-
+import { useQuery } from "@tanstack/react-query";
 async function fetchList(params: any) {
   const { data } = await client.get<IMovieList[]>("/movies/", { params });
   return data;
@@ -21,7 +21,7 @@ async function fetchList(params: any) {
 const perPage = 50;
 const Home: NextPage = (props) => {
   const router = useRouter();
-  const { loading = true, value } = useAsync(() => fetchList(router.query), [...keys.map((x) => router.query[x])]);
+  const { isLoading: loading = true, data: value = [] } = useQuery({ queryKey: ["movies", router.query], queryFn: () => fetchList(router.query) });
   const handlePagination = (e: any, page: number) => {
     router.push(
       `?${qs.stringify({
@@ -41,7 +41,7 @@ const Home: NextPage = (props) => {
         </Center>
       ) : (
         <div className="p-4">
-          <Movies list={value ?? []} />
+          <Movies list={value} />
         </div>
       )}
       {(value?.length ?? 0) >= perPage && (

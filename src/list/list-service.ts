@@ -56,5 +56,8 @@ export function transform(x: Movie): IMovieList {
   };
 }
 function quality(img: string, width: number) {
+  if (img.startsWith("http:")) {
+    img = img.replace("http:", "https:");
+  }
   return img.replace("w500", `w${width}`);
 }

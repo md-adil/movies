@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { Chip, Grid, IconButton, Link, Table, TableBody, TableCell, TableRow } from "@mui/material";
-import { ArrowDownward, Download as DownloadIcon, YouTube } from "@mui/icons-material";
+import { ArrowDownward, Check, ContentCopy, Download as DownloadIcon, YouTube } from "@mui/icons-material";
 import { humanFileSize } from "../libs/filesize";
 import * as classes from "./movie.style";
 import Center from "./center";
@@ -15,6 +15,7 @@ import { getHealthColor } from "../health";
 import { type IMovie } from "src/movie/movie-service";
 import { client } from "src/axios";
 import { useQuery } from "@tanstack/react-query";
+import { cloneElement, useState, type ReactElement, type ReactNode } from "react";
 
 const gap = css`
   padding-bottom: 1rem;
@@ -149,6 +150,12 @@ interface IDownloaderProps {
   item: IMovie["items"][0];
 }
 function Downloader({ item }: IDownloaderProps) {
+  const handleCopy = () => {
+    if (!navigator.clipboard) {
+      return;
+    }
+    navigator.clipboard.writeText(item.torrent_magnet);
+  };
   return (
     <TableRow sx={{ "&:last-child td": { border: 0 } }}>
       <TableCell>
@@ -171,7 +178,44 @@ function Downloader({ item }: IDownloaderProps) {
         <IconButton size="small" key={item.id} href={item.torrent_magnet}>
           <DownloadIcon style={{ fontSize: "inherit" }} />
         </IconButton>
+        <Actionable
+          delay={1500}
+          key={item.id}
+          onClick={handleCopy}
+          successElement={
+            <IconButton size="small">
+              <Check className="text-green-600" fontSize="inherit" />
+            </IconButton>
+          }
+        >
+          <IconButton size="small">
+            <ContentCopy style={{ fontSize: "inherit" }} />
+          </IconButton>
+        </Actionable>
       </TableCell>
     </TableRow>
   );
+}
+
+interface ActionableProps {
+  onClick(e: any): void;
+  children: ReactElement;
+  successElement: ReactNode;
+  delay: number;
+}
+function Actionable({ children, delay, successElement, onClick }: ActionableProps) {
+  const [isClicked, setIsClicked] = useState(false);
+  if (isClicked) {
+    return <>{successElement}</>;
+  }
+  const handleClick = (e: any) => {
+    onClick(e);
+    setIsClicked(true);
+    setTimeout(() => {
+      setIsClicked(false);
+    }, delay);
+  };
+  return cloneElement(children, {
+    onClick: handleClick,
+  });
 }

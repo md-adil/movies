@@ -56,8 +56,8 @@ function transformTorrent(torrents: Torrents): IMovie["items"] {
 
 function getPoster(image: Movie["images"]) {
   let link = image.poster;
-  if (!link.startsWith("http:")) {
-    link.replace("http:", "https:");
+  if (link.startsWith("http:")) {
+    link = link.replace("http:", "https:");
   }
   return link;
 }

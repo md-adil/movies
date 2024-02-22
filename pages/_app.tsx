@@ -17,13 +17,14 @@ const persister = createSyncStoragePersister({
 });
 const clientSideEmotionCache = createCache({ key: "css" });
 
+const maxAge = 1000 * 60 * 60 * 4; // 4 hours
+
 const queryOption: QueryClientConfig = {
   defaultOptions: {
     queries: {
-      gcTime: 1000 * 60 * 60 * 24, // 24 hours
+      gcTime: maxAge, // 4 hours
       refetchOnMount: false,
       refetchOnWindowFocus: false,
-      networkMode: "offlineFirst",
       // staleTime: 1000 * 60 * 60 * 24,
     },
   },
@@ -34,7 +35,7 @@ function MyApp({ Component, pageProps, emotionCache = clientSideEmotionCache }: 
   return (
     <CacheProvider value={emotionCache}>
       <ThemeProvider theme={theme}>
-        <QueryClientProvider client={queryClient} persistOptions={{ persister }}>
+        <QueryClientProvider client={queryClient} persistOptions={{ persister, maxAge }}>
           <Head>
             <meta name="viewport" content="initial-scale=1, width=device-width" />
           </Head>

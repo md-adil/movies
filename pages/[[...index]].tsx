@@ -5,7 +5,7 @@ import Loader from "../src/components/loader";
 import Movies from "../src/list";
 import Center from "../src/components/center";
 import { Pagination, PaginationItem } from "@mui/material";
-import qs from "querystring";
+import qs from "src/libs/qs";
 import { css } from "@emotion/css";
 import SearchBar from "../src/list/components/search-bar";
 import { keys } from "../src/list/filters";
@@ -25,7 +25,7 @@ const Home: NextPage = (props) => {
     router.push(
       `?${qs.stringify({
         ...router.query,
-        page,
+        page: page === 1 ? undefined : page,
       })}`,
       undefined,
       { shallow: true }

@@ -13,7 +13,7 @@ export default function Dialog({ title, children, header, ...props }: IProps) {
   const isPhone = usePhone();
   if (isPhone) {
     return (
-      <Drawer anchor="bottom" open={props.open} onClose={props.onClose}>
+      <Drawer anchor="bottom" classes={{ paper: "!bg-[#121212c2] backdrop-blur-sm" }} open={props.open} onClose={props.onClose}>
         {header}
         <IconButton
           aria-label="close"
@@ -22,8 +22,7 @@ export default function Dialog({ title, children, header, ...props }: IProps) {
             position: "absolute",
             right: 8,
             top: 8,
-            zIndex: 1,
-            color: (theme) => theme.palette.grey[500],
+            zIndex: 100,
           }}
         >
           <CloseIcon />
@@ -34,7 +33,7 @@ export default function Dialog({ title, children, header, ...props }: IProps) {
   }
 
   return (
-    <MuiDialog {...props}>
+    <MuiDialog classes={{ paper: "!bg-[#121212c2] backdrop-blur-sm" }} {...props}>
       {header}
       <IconButton
         aria-label="close"
@@ -43,7 +42,6 @@ export default function Dialog({ title, children, header, ...props }: IProps) {
           position: "absolute",
           right: 8,
           top: 8,
-          color: (theme) => theme.palette.grey[500],
         }}
       >
         <CloseIcon />

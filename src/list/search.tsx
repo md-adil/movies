@@ -11,7 +11,7 @@ import { useQueryClient } from "@tanstack/react-query";
 export const removeEmpty = (obj: any) => {
   return transform(obj, (o: any, v: string, k: string) => {
     const val = v && v.trim();
-    if (val && val !== "seeds") {
+    if (val && val !== "trending") {
       o[k] = val;
     }
   });
@@ -31,7 +31,7 @@ export function SearchBox(props: any) {
   const queryClient = useQueryClient();
   const [genre, setGenre] = useQueryState((q) => q.genre ?? "");
   const [quality, setQuality] = useQueryState((q) => q.quality?.split(",") ?? []);
-  const [sort, setSort] = useQueryState((q) => q.sort ?? "seeds");
+  const [sort, setSort] = useQueryState((q) => q.sort ?? "trending");
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const query = qs.stringify(

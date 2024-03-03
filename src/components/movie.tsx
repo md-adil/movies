@@ -26,6 +26,7 @@ const gotoDown = css`
   bottom: 3rem;
   right: 1rem;
   background: rgba(0, 0, 0, 0.2);
+  z-index: 999;
 `;
 
 const centerLoading = css`

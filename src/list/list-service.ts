@@ -31,7 +31,7 @@ export async function getList(key: string, query: ParsedUrlQuery) {
 async function fetchList(query: ParsedUrlQuery): Promise<IMovieList[]> {
   const { page = 1, ...qs } = query;
   const { data: movies } = await axios.get<Movie[]>(`/movies/${page}`, {
-    params: qs,
+    params: { sort: "trending", ...qs },
   });
 
   movies.forEach((movie) => {
